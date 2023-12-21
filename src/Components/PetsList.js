@@ -11,7 +11,7 @@ function PetsList() {
 
   const [type, setType] = useState("");
   const slectType = (e) => {
-    setType(e.target.value.toLowerCase());
+    setType(e.target.value);
   };
   const petList = pets
     .filter((pet) => pet.name.includes(query))
