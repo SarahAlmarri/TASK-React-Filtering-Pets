@@ -1,8 +1,28 @@
+import { useState } from "react";
 import pets from "../petsData";
 import PetItem from "./PetItem";
 
 function PetsList() {
-  const petList = pets.map((pet) => <PetItem pet={pet} key={pet.id} />);
+  const [query, setQuery] = useState("");
+
+  const chagnequery = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const [type, setType] = useState("");
+  const slectType = (e) => {
+    setType(e.target.value.toLowerCase());
+  };
+  const petList = pets
+    .filter((pet) => pet.name.includes(query))
+    .filter((pet) => pet.type.includes(type))
+    .map((pet) => <PetItem pet={pet} key={pet.id} />);
+
+  //   console.log(query);
+  //   const setQueryy = (e) => {
+  //     setQuery(e.target.value);
+  //     pets.filter((pet) => pet.name.includes(query));
+  //   };
 
   return (
     <section id="doctors" className="doctor-section pt-140">
@@ -20,11 +40,12 @@ function PetsList() {
                   placeholder="Search"
                   aria-label="Search"
                   aria-describedby="search-addon"
+                  onChange={chagnequery}
                 />
               </div>
               <br />
               Type:
-              <select className="form-select">
+              <select className="form-select" onChange={slectType}>
                 <option value="" selected>
                   All
                 </option>
